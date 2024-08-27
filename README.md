@@ -1,2 +1,2 @@
 # flask-blog
-A blog made in python with flask
+A blog made in Flask using SQLAlchemy
