@@ -1,10 +1,15 @@
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegisterForm, LoginForm
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
 # Only for Development
 app.config["SECRET_KEY"] = "ed13ff47228583ac38fca4ee4f91fb19"
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
+
+db = SQLAlchemy(app)
 
 @app.route("/")
 @app.route("/home")
