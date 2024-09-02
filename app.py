@@ -11,6 +11,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 
 db = SQLAlchemy(app)
 
+class User(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  username = db.Column(db.String(15), unique=True, nullable=False)
+  email = db.Column(db.String(100), unique=True, nullable=False)
+  password = db.Column(db.String(60), nullable=False)
+  profile_picture = db.Column(db.String(20), nullable=False, default="avatar.jpeg")
+
+ 
 @app.route("/")
 @app.route("/home")
 def home():
