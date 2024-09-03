@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegisterForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
@@ -17,8 +18,15 @@ class User(db.Model):
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(60), nullable=False)
   profile_picture = db.Column(db.String(20), nullable=False, default="avatar.jpeg")
+  posts = db.relationship("Post", backref="author", lazy=True)
 
- 
+class Post(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  title = db.Column(db.String(100), nullable=False, unique=True)
+  body = db.Column(db.Text, nullable=False)
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
 @app.route("/")
 @app.route("/home")
 def home():
